@@ -1,2 +1,6 @@
-#ignore specific directory
+<<<<<<< HEAD
+# Ignore specific directory
 SE_Task_Descriptions/
+=======
+/SE_Task_descriptions
+>>>>>>> 6cb02d481a504d70b6200c6b163f6bcccdffb802
