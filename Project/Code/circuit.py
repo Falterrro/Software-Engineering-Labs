@@ -45,14 +45,30 @@ class Circuit:
         return cache
 
     def _topological_order(self) -> list[str]:
-        visited, order = set(), []
+        visited, in_stack, order = set(), set(), []
         def visit(name):
-            if name in visited or name in self.inputs:
+            if name in self.inputs:
                 return
-            visited.add(name)
+            if name in in_stack:
+                raise ValueError(f"Cycle detected at gate '{name}'")
+            if name in visited:
+                return
+            in_stack.add(name)
             for dep in self.wiring.get(name, []):
                 visit(dep)
+            in_stack.discard(name)
+            visited.add(name)
             order.append(name)
         for name in self.gates:
             visit(name)
         return order
+
+    def truth_table(self) -> list[dict]:
+        import itertools
+        keys = list(self.inputs.keys())
+        rows = []
+        for combo in itertools.product([False, True], repeat=len(keys)):
+            input_vals = dict(zip(keys, combo))
+            result = self.evaluate(input_vals)
+            rows.append(result)
+        return rows

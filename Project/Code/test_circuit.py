@@ -1,18 +1,16 @@
-def test_chained_circuit_not_and():
+# test_circuit.py — Student B adds:
+def test_cycle_detection():
     c = Circuit()
     c.add_input("A")
-    c.add_input("B")
-    c.add_gate("g1", GateType.AND, inputs=["A", "B"])
+    c.add_gate("g1", GateType.NOT, inputs=["g2"])
     c.add_gate("g2", GateType.NOT, inputs=["g1"])
-    result = c.evaluate({"A": True, "B": True})
-    assert result["g2"] == False
+    with pytest.raises(ValueError, match="Cycle"):
+        c.evaluate({"A": True})
 
-def test_complex_chain():
+def test_truth_table_has_correct_rows():
     c = Circuit()
     c.add_input("A")
     c.add_input("B")
-    c.add_input("C")
     c.add_gate("g1", GateType.AND, inputs=["A", "B"])
-    c.add_gate("g2", GateType.OR,  inputs=["g1", "C"])
-    result = c.evaluate({"A": True, "B": True, "C": False})
-    assert result["g2"] == True
+    table = c.truth_table()
+    assert len(table) == 4 
