@@ -36,3 +36,23 @@ class Circuit:
     def add_gate(self, name: str, gate_type: GateType, inputs: list[str]):
         self.gates[name] = Gate(gate_type)
         self.wiring[name] = inputs
+
+    def evaluate(self, input_values: dict) -> dict:
+        cache = dict(input_values)
+        for name in self._topological_order():
+            resolved = [cache[i] for i in self.wiring[name]]
+            cache[name] = self.gates[name].evaluate(resolved)
+        return cache
+
+    def _topological_order(self) -> list[str]:
+        visited, order = set(), []
+        def visit(name):
+            if name in visited or name in self.inputs:
+                return
+            visited.add(name)
+            for dep in self.wiring.get(name, []):
+                visit(dep)
+            order.append(name)
+        for name in self.gates:
+            visit(name)
+        return order
