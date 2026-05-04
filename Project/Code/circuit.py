@@ -23,3 +23,16 @@ class Gate:
 
     def evaluate(self, inputs: list[bool]) -> bool:
         return GATE_FUNCTIONS[self.gate_type](inputs)
+
+class Circuit:
+    def __init__(self):
+        self.inputs = {}       
+        self.gates = {}        
+        self.wiring = {}
+
+    def add_input(self, name: str):
+        self.inputs[name] = False
+
+    def add_gate(self, name: str, gate_type: GateType, inputs: list[str]):
+        self.gates[name] = Gate(gate_type)
+        self.wiring[name] = inputs
