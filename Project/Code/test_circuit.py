@@ -1,4 +1,3 @@
-import pytest
 from circuit import Gate, GateType
 
 def test_and_gate_evaluates_correctly():
