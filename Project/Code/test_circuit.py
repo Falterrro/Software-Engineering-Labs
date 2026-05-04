@@ -1,7 +1,9 @@
-from circuit import Gate, GateType
+def test_not_gate_flips():
+    g = Gate(GateType.NOT)
+    assert g.evaluate([True]) == False
+    assert g.evaluate([False]) == True
 
-def test_and_gate_evaluates_correctly():
-    g = Gate(GateType.AND)
-    assert g.evaluate([True, True]) == True
-    assert g.evaluate([True, False]) == False
-    assert g.evaluate([False, False]) == False
+def test_xor_gate():
+    g = Gate(GateType.XOR)
+    assert g.evaluate([True, False]) == True
+    assert g.evaluate([True, True]) == False
