@@ -72,3 +72,21 @@ class Circuit:
             result = self.evaluate(input_vals)
             rows.append(result)
         return rows
+
+    def to_dict(self) -> dict:
+        return {
+            "inputs": list(self.inputs.keys()),
+            "gates": [
+                {"name": n, "type": g.gate_type.value, "inputs": self.wiring[n]}
+                for n, g in self.gates.items()
+            ]
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "Circuit":
+        c = cls()
+        for inp in data["inputs"]:
+            c.add_input(inp)
+        for g in data["gates"]:
+            c.add_gate(g["name"], GateType(g["type"]), g["inputs"])
+        return c
