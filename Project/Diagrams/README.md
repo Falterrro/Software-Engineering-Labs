@@ -1,0 +1,1 @@
+The folder stores various diagrams for the IEEE SRS document in the .pdf extension.

@@ -1,0 +1,1 @@
+The folder stores all versions of the SRS IEEE 830 document, as required for the Software Engineering Laboratories.
