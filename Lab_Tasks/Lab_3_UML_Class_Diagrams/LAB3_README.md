@@ -1,0 +1,1 @@
+This folder consists of .pdf files which are tasks conducted during 3rd Software Engineering Laboratories about UML Class Diagrams.

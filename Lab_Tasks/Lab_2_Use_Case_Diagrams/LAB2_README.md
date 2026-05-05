@@ -1,0 +1,1 @@
+This folder consists of .pdf files which are tasks conducted during 2nd Software Engineering Laboratories about Use Case Diagrams.
